@@ -25,6 +25,45 @@
             <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#formModal">Add Task</button>
         </div>
         <!-- Todo: Create a modal with a form to add tasks -->
+        <div class="modal fade" id="formModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add Task</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="task-form">
+                            <div class="mb-3">
+                                <label for="task-name" class="form-label">Task Name</label>
+                                <input type="text" class="form-control" id="task-name" name="task-name" required />
+                            </div>
+                            <div class="mb-3">
+                                <label for="task-description" class="form-label">Task Description</label>
+                                <textarea class="form-control" id="task-description" name="task-description" rows="3"
+                                    required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="task-due-date" class="form-label">Due Date</label>
+                                <input type="date" class="form-control" id="task-due-date" name="task-due-date" required />
+                            </div>
+                            <div class="mb-3">
+                                <label for="task-priority" class="form-label">Priority</label>
+                                <select class="form-select" id="task-priority" name="task-priority" required>
+                                    <option value="low">Low</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="high">High</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add Task</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
         <div class="row swim-lanes text-center justify-content-between">
             <div class="col-12 col-lg-4 d-flex">
                 <div id="to-do" class="card border-light mb-3 lane flex-grow-1">
