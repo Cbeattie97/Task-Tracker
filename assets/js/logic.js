@@ -16,10 +16,12 @@ function generateTaskId(){
         nextId++;
     }
     localStorage.setItem('nextId', JSON.stringify(nextId));
+    return nextId;
 }
 
 // Todo: create a function to create a task card
 function createTaskCard(task) {
+    console.log(task)
 
     const card= $("<div>").addClass("card text-center task-card mb-3 z-index-1").attr("id", task.id);
     
@@ -33,9 +35,9 @@ function createTaskCard(task) {
 
     const priority = $("<p>").addClass("mb-2").text(task.priority);
 
-    deleteDiv.append(deleteButton);
-    card.append(taskTitle, taskDescription, dueDate, deleteDiv);
-    $(`#${task.status}-cards`).append(card);
+    //deleteDiv.append(deleteButton);
+    card.append(name, description, dueDate, deleteButton, priority);
+    $(`#todo-cards`).append(card);
 
     return card;
 }
@@ -76,18 +78,42 @@ function renderTaskList() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('submitTask').addEventListener('click', function(event) {
-        event.preventDefault(); // Prevent form submission
-        handleAddTask();
-    });
-});
+// document.addEventListener('DOMContentLoaded', function() {
+//     document.getElementById('submitTask').addEventListener('click', function(event) {
+//         event.preventDefault(); // Prevent form submission
+//         handleAddTask();
+//     });
+// });
 
-function handleAddTask() {
-    var cardContainer = document.getElementById('todo-cards'); // Adjust based on where you want to add the card
-    var newCard = document.createElement('div');
-    newCard.innerHTML = 'New Task'; // Customize with task details
-    cardContainer.appendChild(newCard);
+function handleAddTask(event) {
+    event.preventDefault();
+    //console.log("in the function handleAdd task")
+    let taskNameVal = $("#task-name").val();
+   // console.log("this is task elmennt = ", taskNameVal);
+    let taskDescriptionVal = $("#task-description").val();
+    //console.log("this is task description = ", taskDescriptionVal);
+    let taskDueDateVal = $("#task-due-date").val();
+    //console.log("this is task due date = ", taskDueDateVal);
+    let taskPriorityVal = $("#task-priority").val();
+    //console.log("this is task priority = ", taskPriorityVal);
+
+    let task = {
+        id: generateTaskId(),
+        title: taskNameVal,
+        description: taskDescriptionVal,
+        dueDate: taskDueDateVal,
+        priority: taskPriorityVal,
+    }
+
+
+
+    createTaskCard(task);
+
+
+    // var cardContainer = document.getElementById('todo-cards'); // Adjust based on where you want to add the card
+    // var newCard = document.createElement('div');
+    // newCard.innerHTML = 'New Task'; // Customize with task details
+    // cardContainer.appendChild(newCard);
 
     // Close the modal window
     $('#modalForm').modal('hide');
@@ -117,7 +143,7 @@ function handleDrop(event, ui) {
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {
     renderTaskList();
-    $('.#task-form').on('submit', handleAddTask);
+    $('#task-form').on('submit', handleAddTask);
     $('.document').on('click', ".delete-task", handleDeleteTask);
     $('.card-body').droppable({
         accept: '.card',
